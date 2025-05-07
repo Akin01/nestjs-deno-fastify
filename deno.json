@@ -1,0 +1,44 @@
+{
+	"tasks": {
+		"start:dev": "deno run -A --watch src/main.ts",
+		"start": "deno run -A src/main.ts",
+		"format": "deno fmt ."
+	},
+	"imports": {
+		"@nestjs/cli": "npm:@nestjs/cli@^11.0.7",
+		"@nestjs/common": "npm:@nestjs/common@^11.1.0",
+		"@nestjs/config": "npm:@nestjs/config@^4.0.2",
+		"@nestjs/core": "npm:@nestjs/core@^11.1.0",
+		"@nestjs/platform-fastify": "npm:@nestjs/platform-fastify@^11.1.0",
+		"@nestjs/schematics": "npm:@nestjs/schematics@^11.0.5",
+		"@std/assert": "jsr:@std/assert@1",
+		"class-transformer": "npm:class-transformer@^0.5.1",
+		"class-validator": "npm:class-validator@^0.14.2",
+		"reflect-metadata": "npm:reflect-metadata@^0.2.2",
+		"rxjs": "npm:rxjs@^7.8.2"
+	},
+	"compilerOptions": {
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"strictPropertyInitialization": false
+	},
+	"lint": {
+		"tags": [
+			"recommended"
+		]
+	},
+	"fmt": {
+		"useTabs": true,
+		"indentWidth": 2,
+		"lineWidth": 80,
+		"singleQuote": false,
+		"trailingCommas": "onlyMultiLine",
+		"semiColons": true
+	},
+	"exclude": [
+		"node_modules",
+		"test",
+		"**/*spec.ts"
+	],
+	"nodeModulesDir": "auto"
+}

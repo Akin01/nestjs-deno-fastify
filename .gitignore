@@ -1,0 +1,12 @@
+# IDE
+.vscode
+.idea
+
+# environment
+.env
+
+# dependencies
+node_modules
+
+# lock files
+deno.lock
