@@ -10,3 +10,7 @@ node_modules
 
 # lock files
 deno.lock
+
+# build
+dist
+main.exe

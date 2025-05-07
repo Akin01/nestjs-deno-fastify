@@ -33,3 +33,15 @@ PORT=3000
 ```bash
 deno task start:dev
 ```
+
+### Compile for Production
+```bash
+# Compile the application
+deno task build
+
+# Run the compiled application for windows
+./main.exe
+
+# Run the compiled application for linux
+./main
+```

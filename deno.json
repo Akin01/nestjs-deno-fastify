@@ -2,6 +2,7 @@
 	"tasks": {
 		"start:dev": "deno run -A --watch src/main.ts",
 		"start": "deno run -A src/main.ts",
+		"build": "deno compile -A -o main src/main.ts",
 		"format": "deno fmt ."
 	},
 	"imports": {
