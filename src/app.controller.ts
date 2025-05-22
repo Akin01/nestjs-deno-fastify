@@ -8,9 +8,12 @@ import {
 	Param,
 	Post,
 	Put,
+	Query,
 } from "@nestjs/common";
-import { AppService } from "./app.service.ts";
-import { UserDto } from "./app.dto.ts";
+import { AppService } from "./app.service";
+import { UserDto } from "./app.dto";
+import { User } from "./user.model";
+import { PaginationQueryDto, PaginatedResponse } from "./pagination.dto";
 
 @Controller("/users")
 export class AppController {
@@ -19,15 +22,16 @@ export class AppController {
 	constructor(private readonly appService: AppService) {}
 
 	@Get()
-	getUsers() {
-		this.logger.log("get all users");
-		return this.appService.getUsers();
+	async getUsers(@Query() paginationQuery: PaginationQueryDto): Promise<PaginatedResponse<User>> {
+		this.logger.log(`Get all users with pagination: page=${paginationQuery.page}, limit=${paginationQuery.limit}`);
+		// DTO provides default values for page and limit if they are not in the query
+		return await this.appService.getUsers(paginationQuery.page!, paginationQuery.limit!);
 	}
 
 	@Get("/:id")
-	getUserById(@Param("id") id: string) {
+	async getUserById(@Param("id") id: string): Promise<User | undefined> {
 		this.logger.log(`get user by id: ${id}`);
-		const userById = this.appService.getUserById(id);
+		const userById = await this.appService.getUserById(id);
 
 		if (!userById) {
 			throw new NotFoundException(`user with id ${id} not found`);
@@ -37,20 +41,22 @@ export class AppController {
 	}
 
 	@Post()
-	insertUser(@Body() user: UserDto) {
-		this.logger.log(`insert user: ${user.name}`);
-		this.appService.insertUser({ ...user });
+	async insertUser(@Body() userDto: UserDto): Promise<User> {
+		this.logger.log(`insert user: ${userDto.name}`);
+		// Assuming UserDto now aligns with {name: string, email: string}
+		// or that AppService's insertUser correctly handles the mapping if UserDto is {name: string, age: number}
+		return await this.appService.insertUser(userDto);
 	}
 
 	@Put("/:id")
-	updateUser(@Param("id") id: string, @Body() user: UserDto) {
+	async updateUser(@Param("id") id: string, @Body() userDto: UserDto): Promise<User | undefined> {
 		this.logger.log(`update user by id: ${id}`);
-		this.appService.updateUser(id, { ...user });
+		return await this.appService.updateUser(id, userDto);
 	}
 
 	@Delete("/:id")
-	deleteUser(@Param("id") id: string) {
+	async deleteUser(@Param("id") id: string): Promise<void> {
 		this.logger.log(`delete user by id: ${id}`);
-		this.appService.deleteUser(id);
+		await this.appService.deleteUser(id);
 	}
 }

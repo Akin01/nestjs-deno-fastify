@@ -1,9 +1,10 @@
 {
 	"tasks": {
-		"start:dev": "deno run -A --watch src/main.ts",
-		"start": "deno run -A src/main.ts",
-		"build": "deno compile -A -o main src/main.ts",
-		"format": "deno fmt ."
+		"start:dev": "deno run -A --allow-kv --watch src/main.ts",
+		"start": "deno run -A --allow-kv src/main.ts",
+		"build": "deno compile -A --allow-kv -o main src/main.ts",
+		"format": "deno fmt .",
+		"test": "deno test --allow-read src/**/*.test.ts"
 	},
 	"imports": {
 		"@nestjs/cli": "npm:@nestjs/cli@^11.0.7",
